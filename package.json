@@ -4,9 +4,6 @@
   "license": "MIT",
   "author": "Jeremie",
   "scripts": {
-    "build:watch": "tsc -w",
-    "run:watch": "nodemon ./dist/index.js",
-    "run": "node ./dist/index.js",
     "tauri": "tauri",
     "tauri_dev": "tauri dev",
     "tauri_build": "tauri build",
@@ -17,11 +14,15 @@
     "serve": "webpack serve"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.1",
     "@tauri-apps/api": "^1.0.0-beta.8",
     "@types/lodash": "^4.14.172",
     "@types/node": "^16.6.1",
+    "bootstrap": "^5.1.1",
     "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.3.0",
     "nodemon": "^2.0.12",
+    "scss-loader": "^0.0.1",
     "typescript": "^4.4.3",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0"
