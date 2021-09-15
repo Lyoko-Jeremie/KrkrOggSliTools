@@ -31,7 +31,7 @@ const processFunction = async (rootDir: string, fileName: string) => {
         console.log(parseInt(m[2]));
 
         const cmd =
-            'D:\\IDMDownloads\\ffmpeg-4.3.1-2020-11-19-full_build\\bin\\ffmpeg.exe'
+            '"D:\\IDMDownloads\\ffmpeg-4.3.1-2020-11-19-full_build\\bin\\ffmpeg.exe"'
             + ' -i '
             + '"' + oggPath + '"'
             + ' -af atrim=start_sample='
@@ -40,11 +40,23 @@ const processFunction = async (rootDir: string, fileName: string) => {
             + parseInt(m[1])
             + ' '
             + '"' + savePath + '"';
-
         console.log(cmd);
 
+        const ffmpegExe = 'D:\\IDMDownloads\\ffmpeg-4.3.1-2020-11-19-full_build\\bin\\ffmpeg.exe';
         // https://tauri.studio/en/docs/api/js/classes/shell.Command
-        const command = new Command(cmd);
+        const command = new Command(
+            ffmpegExe,
+            [
+                '-i',
+                oggPath,
+                '-af',
+                `atrim=start_sample=${parseInt(m[2])}:end_sample=${parseInt(m[1])}`,
+                savePath,
+            ]
+        );
+
+        console.log('command', command);
+
         command.on('close', data => {
             console.log(`command finished with code ${data.code} and signal ${data.signal}`);
         });
@@ -53,6 +65,8 @@ const processFunction = async (rootDir: string, fileName: string) => {
         command.stderr.on('data', line => console.log(`command stderr: "${line}"`));
 
         const child = await command.spawn();
+        // const child = await command.execute();
+        console.log('child', child);
         console.log('pid:', child.pid);
 
     }
